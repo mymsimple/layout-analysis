@@ -10,7 +10,7 @@ page_param_json = {
                 "type": "image",
             }
         ],
-        "output_type": "ocr",
+        "output_type": "text_only",
         "output": {}
     }
 }
@@ -175,8 +175,10 @@ function load_result(result) {
         load_correct(result)
     } else if ('crnn' === output_type) {
         load_crnn(result)
-    } else {
+    } else if ('ocr' == output_type) {
         load_ocr(result)
+    } else {
+        // 匹配不到默认不展示图片
     }
     //展示json
     delete result['debug_info']
