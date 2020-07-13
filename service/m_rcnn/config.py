@@ -93,7 +93,9 @@ else:
 
 # 1 background + n classes
 # __C.COMMON.CLASS_NUM = 1 + 80
-__C.COMMON.CLASS_NUM = 1 + 1
+#TODO 模型选择项个数
+__C.COMMON.CLASS_NUM = 1 + 2
+
 
 # image_id(1维) + original_image_shape(3维) + image_shape(3维) + image_coor(y1, x1, y2, x2)(4维) +
 # scale(1维) + class_num(类别数)
