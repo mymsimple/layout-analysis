@@ -59,8 +59,8 @@ def init_log():
 
 def startup(app):
     conf.init_arguments()
-    # log.init(conf.system_config.log_dir)
-    init_log()
+    log.init(conf.system_config.log_dir)
+    # init_log()
     _logger().debug('启动模式：%s,子进程:%s,父进程:%s,线程:%r', conf.MODE, os.getpid(), os.getppid(), current_thread())
 
     # 初始化各种变量（全局）

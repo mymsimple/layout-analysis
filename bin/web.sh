@@ -63,8 +63,8 @@ if [ $? != 0 ]; then
     exit 1
 fi
 
- PORT=8080
- MODE=single
+PORT=8080
+MODE=single
 
 echo "环境变量："
 echo "-------------------"
@@ -108,7 +108,7 @@ if [ "$MODE" == "single" ]; then
         --workers=1 \
         --bind 0.0.0.0:$PORT \
         --timeout=300 \
-        server.server:app
+        server.server:app"
 #        >../logs/console.log 2>&1"
     echo "启动服务："
     echo "$_CMD"

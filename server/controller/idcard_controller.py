@@ -9,7 +9,7 @@ from vo.enums.ocr_enum import BizType
 
 logger = logging.getLogger(__name__)
 
-app = Blueprint('ocr_v2', __name__, url_prefix="/v2")
+app = Blueprint('idcard', __name__, url_prefix="/idcard")
 """
 V2.0 OCR相关接口
     1. V2.0 ocr接口：
@@ -44,34 +44,34 @@ def ocr():
         logger.error("处理图片过程中出现问题：%r", e)
         return jsonify(BaseResponse("9999", str(e)).__dict__)
 
-
-@app.route('/ocr_debug.ajax', methods=["POST"])
-def ocr_debug():
-    logger.info("请求url:%r", request.full_path)
-    try:
-        if conf.MODE == "single": conf.disable_debug_flags()  # 不用处理调试的动作，但是对post方式，还是保留
-        ocr_request = OcrRequest()
-        start = time.time()
-        json_utils.json_deserialize(request.get_data(), ocr_request, ignore_null=True)
-        logger.info("请求参数：%s", ocr_request)
-        # 参数校验
-        validate(ocr_request)
-        image = ocr_utils.base64_2_image(ocr_request.img)
-        if image is None:
-            return jsonify({'error_code': -1, 'message': 'image decode from base64 failed.'})
-        height, width, _ = image.shape
-
-        # 注意！ctpn_params是个全局变量，只有在single模式的时候，才会被初始化，否则就是个None
-        # TODO !! 检测模型默认！！
-        success, response = ocr_service.ocr_process(ocr_request,
-                                                    conf.MODE)
-        logger.debug("识别图片花费[%d]秒", time.time() - start)
-        return jsonify(json_utils.obj2json(response))
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        logger.error("处理图片过程中出现问题：%r", e)
-        return jsonify(BaseResponse("9999", str(e)).__dict__)
+#
+# @app.route('/ocr_debug.ajax', methods=["POST"])
+# def ocr_debug():
+#     logger.info("请求url:%r", request.full_path)
+#     try:
+#         if conf.MODE == "single": conf.disable_debug_flags()  # 不用处理调试的动作，但是对post方式，还是保留
+#         ocr_request = OcrRequest()
+#         start = time.time()
+#         json_utils.json_deserialize(request.get_data(), ocr_request, ignore_null=True)
+#         logger.info("请求参数：%s", ocr_request)
+#         # 参数校验
+#         validate(ocr_request)
+#         image = ocr_utils.base64_2_image(ocr_request.img)
+#         if image is None:
+#             return jsonify({'error_code': -1, 'message': 'image decode from base64 failed.'})
+#         height, width, _ = image.shape
+#
+#         # 注意！ctpn_params是个全局变量，只有在single模式的时候，才会被初始化，否则就是个None
+#         # TODO !! 检测模型默认！！
+#         success, response = ocr_service.ocr_process(ocr_request,
+#                                                     conf.MODE)
+#         logger.debug("识别图片花费[%d]秒", time.time() - start)
+#         return jsonify(json_utils.obj2json(response))
+#     except Exception as e:
+#         import traceback
+#         traceback.print_exc()
+#         logger.error("处理图片过程中出现问题：%r", e)
+#         return jsonify(BaseResponse("9999", str(e)).__dict__)
 
 
 def validate(ocr_request: OcrRequest):
