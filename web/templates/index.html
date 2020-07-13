@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图像识别测试</title>
+	</head>	
+	<body>
+
+  		{% include 'includes/_head.html' %}
+  		
+		<div class="container" style="padding:20px">
+			<div class="alert alert-primary align-items-center" role="alert" align="center">
+				<a href="/main.html?name=ocr.v1">OCR.V1</a>
+			</div>
+            <div class="alert alert-primary align-items-center" role="alert" align="center">
+				<a href="/main.html?name=ocr.v2">OCR.V2</a>
+			</div>
+
+			<div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=crnn.v1">CRNN汉字识别测试V1</a>
+			</div>
+            	<div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=crnn.v2">CRNN汉字识别测试V2</a>
+			</div>
+
+			<div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=preprocess.v1">单据预处理测试V1</a>
+			</div>
+
+			<div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=plate.v2">车牌识别测试V2</a>
+			</div>
+            <div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=plate.ocr.v2">车牌小图识别测试V2</a>
+			</div>
+	        <div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=binary.v1">二值化测试V1</a>
+			</div>
+			<div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=correct.v1">文本纠错测试V1</a>
+			</div>
+            <div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=detect.v1">图像检测测试V1</a>
+			</div>
+            <div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=gjj.v2">公积金识别测试V2</a>
+			</div>
+			<div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=credit.report.split.v1">征信报告预处理V1</a>
+			</div>
+			<div class="alert alert-primary" role="alert"  align="center">
+				<a href="/main.html?name=document.v1">合同识别测试V1</a>
+			</div>
+			<p>测试数据下载：<a href="{{ url_for('static', filename='demo/test.zip') }}"> 📄</a></p>
+			<p><a href="/api">API接口说明</a></p>
+			<p>版本: {{version}}</p>
+		</div>
+	</body>
+</html>

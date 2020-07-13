@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CRNN测试</title>
+	</head>	
+	<body>
+		{% include 'includes/_head.html' %}
+
+		<div class="container">
+
+			<h3 class="title">CRNN汉字识别</h3>
+
+			<div class="card">
+				<div class="card-body" align="center">
+
+					<form action="/crnn.post" enctype="multipart/form-data"  method="POST">
+						<table>
+							<tr>
+								<td>识别图片</td>
+								<td><input type="file" name="image" multiple="multiple" />
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="submit" value="识别" class="btn btn-primary"/></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+	</body>
+	<!-- <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"> -->
+	<script type="text/javascript">
+	    document.getElementById("upload_file").onchange = function () {
+	        gen_base64();
+	    };
+	    function $_(id) {
+	            return document.getElementById(id);
+	    }
+	    function gen_base64() {
+	        var file = $_('upload_file').files[0];
+	        r = new FileReader();  //本地预览
+	        r.onload = function(){
+	            $_('base64_output').value = r.result;
+	        }
+	        r.readAsDataURL(file);    //Base64
+	    }
+	</script>
+	</div>
+</html>

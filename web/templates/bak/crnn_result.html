@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OCR结果展示</title>
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	</head>
+	<body>
+	{% include 'includes/_head.html' %}
+		<h3 class="title">识别结果</h3>
+		<div class="container">
+			<p style="color:#F00" align="center">{{ result['word'] }}</p>
+			<h3 class="title">原图</h3>
+			<div align="center">
+				<img src="data:image/jpg;base64,{{ result['image'] }}">
+			</div>
+		</div>
+	</body>
+</html>

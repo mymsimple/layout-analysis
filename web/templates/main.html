@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图像识别OCR</title>
+         <link rel="stylesheet" href="/static/css/common.css?v=1.0">
+        <script type="text/javascript" src="/static/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/main.js?v=028"></script>
+
+    </head>
+
+	<body>
+	{% include 'includes/_head.html' %}
+
+	<div class="custom-style">
+    	<h3 class="title">图像通用识别</h3>
+		<div class="card"  align="center" >
+  			<div class="card-body form-horizontal"  align="center" >
+				<form>
+                  <div id="toolbar" class="cs-querylist">
+                     <div class="tx-r  pdt30">
+                        <input type="button" value="识别" id="submit_ocr"  class="btn btn-primary"/>
+                     </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+    <div align="center">
+        <h3 class="title" id="result_title">识别结果</h3>
+        <span align="center" id="request_url"></span>
+    </div>
+    <div id="ocr_output" style="display: none">
+        {#ocr识别结果#}
+        <div align="center">
+               {# src="data:image/jpg;base64,{{ result['image'] }}"#}
+                    <img id="big_image"  width="80%">
+            </div>
+            <div align="center">
+                <table id="small_table" border="1" style="min-width:980px;width:80%;margin: 0 auto;">
+                  <tr>
+                      <th width="60%">检测小图</th>
+                      <th width="20%">识别结果</th>
+                      <th>矫正后结果</th>
+                  </tr>
+                </table>
+            </div>
+    </div>
+
+    <div id="plate_output" style="display: none">
+        <div align="center">
+            <div class="plate" id="plate_no"></div>
+        </div>
+
+        <div align="center">
+            <img class="plate_image" id="plate_small">
+        </div>
+        <div align="center">
+            <img id="plate_image" width="80%">
+        </div>
+    </div>
+
+
+    <div id="preprocess_output" style="display: none">
+        <div align="center">
+            <img id="pre_image" width="80%">
+        </div>
+    </div>
+
+    <div id="text_output" style="display: none">
+        <div align="center">
+            <table id="text_table"  border="1" style="min-width:100px;width:80%;margin: 0 auto;">
+                 <tr>
+                  <th width="70%">测试结果</th>
+              </tr>
+			</table>
+        </div>
+    </div>
+
+    <div id="detect_output" style="display: none">
+        <div align="center">
+            <img id="detect_image"  width="80%">
+        </div>
+        <div align="center">
+            <table id="detect_table" border="1" style="table-layer:fixed;min-width:980px;width:80%;margin: 0 auto;">
+              <tr>
+                  <th width="70%">检测小图</th>
+                  <th width="30%">坐标</th>
+              </tr>
+            </table>
+        </div>
+    </div>
+
+     <div id="report_output" style="display: none">
+        <div align="center">
+            <img id="report_image"  width="80%">
+        </div>
+        <div align="center">
+            <table id="report_table" border="1" style="table-layer:fixed;min-width:980px;width:80%;margin: 0 auto;">
+              <tr>
+                  <th width="70%">检测小图</th>
+                  <th width="30%">坐标</th>
+              </tr>
+            </table>
+        </div>
+    </div>
+
+    <div></div>
+    <div style="width:80%;margin: 0 auto;">
+       <pre  id="result_json">{接口返回结果}</pre>
+    </div>
+
+	</body>
+
+</html>

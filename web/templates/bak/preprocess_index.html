@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>预处理测试</title>
+	</head>	
+	<body>
+	{% include 'includes/_head.html' %}
+	<div class="container">
+		<h3 class="title">图像预处理测试</h3>
+		<div class="card">
+  			<div class="card-body" align="center">
+					<form action="/preprocess.post" enctype="multipart/form-data"  method="POST">
+						<table>
+							<tr>
+								<td>图像预处理图片</td>
+								<td><input type="file" name="image" multiple="multiple" />
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="submit" value="提交" class="btn btn-primary"/></td>
+							</tr>
+						</table>
+					</form>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

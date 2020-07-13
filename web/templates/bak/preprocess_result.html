@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>预处理结果展示</title>
+	    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	</head>
+	<body>
+	{% include 'includes/_head.html' %}
+	  <h3 class="title">处理结果</h3>
+	  <div class="container">
+		  <div>返回码  ：{{result['code']}}</div> #0是正确，9999是错误，1001是模糊，1002是不合法单据
+		  <div>返回码  ：{{result['msg']}}</div>
+		  <div>调整角度：{{result['rotate']}}</div>
+		  <h3>处理后的图像：</h3>
+		  <div align="center">
+			<img src="data:image/jpg;base64,{{ result['image'] }}" width="50%">
+		  </div>
+	  </div>
+	</body>
+</html>

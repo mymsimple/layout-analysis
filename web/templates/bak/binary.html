@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图片二值化</title>
+        <link rel="stylesheet" href="static/css/common.css">
+        <script type="text/javascript" src="static/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="static/js/binary.js?t=11"></script>
+	</head>
+	<body>
+	{% include 'includes/_head.html' %}
+
+	<div class="custom-style">
+    	<h3 class="title">图像通用识别</h3>
+		<div class="card"  align="center" >
+  			<div class="card-body form-horizontal"  align="center" >
+
+				<form>
+                  <div id="toolbar" class="cs-querylist">
+                        <dl>
+                           <dt>识别图片:</dt>
+                            <input type="hidden" id="file_base64">
+                            <dd class="dd-input-margin-right">
+    						<input type="file" id="upload_file" name="image" multiple="multiple" />
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>二值化阈值:</dt>
+                            <dd class="dd-input-margin-right">
+                                <input name="threshold" id="threshold" type="text"  />
+                            </dd>
+                        </dl>
+
+                     <div class="tx-r  pdt30">
+                        <input type="button" value="识别" id="submit_ocr"  class="btn btn-primary"/>
+                     </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+    <h3 class="title">识别结果</h3>
+
+    <div align="center">
+        <img id="big_image"  width="80%">
+    </div>
+	</body>
+</html>

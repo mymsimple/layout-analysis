@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OCR结果展示</title>
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	</head>
+	<body>
+		{% include 'includes/_head.html' %}
+		<div class="container">
+
+		<style style="css">
+		.plate {
+		  font-size:50px;
+		  color: white;
+		  background-color: #1e68bb;
+		  border-radius: 10px;
+		  border:white 5px solid;
+		  text-align: center;
+		  padding: 5px 20px;
+		  display: inline-block;
+		  box-shadow: 0 0 1px 2px #1e68bb;
+		}
+
+		.plate_image{
+			width:300px;
+			padding:30px;
+		}
+		</style>
+
+		<h3 class="title">车牌结果</h3>
+
+		<div align="center">
+			<div class="plate">{{result['plate']}}</div>
+		</div>
+
+		<div align="center">
+			<img class="plate_image" src="data:image/jpg;base64,{{ result['plate_image'] }}">
+		</div>
+
+		<h3 class="title">车牌检测</h3>
+		<div align="center">
+			<img src="data:image/jpg;base64,{{ result['image'] }}" width="80%">
+		</div>
+
+	</body>
+
+</html>

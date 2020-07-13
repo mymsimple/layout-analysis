@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图像识别OCR</title>
+         <link rel="stylesheet" href="/static/css/common.css">
+        <script type="text/javascript" src="/static/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/credit_report.js?v=101" ></script>
+    </head>
+
+	<body>
+	{% include 'includes/_head.html' %}
+
+	<div class="custom-style">
+    	<h3 class="title">图像检测检测</h3>
+		<div class="card"  align="center" >
+  			<div class="card-body form-horizontal"  align="center" >
+
+				<form>
+                  <div id="toolbar" class="cs-querylist">
+                        <dl>
+                           <dt>识别图片:</dt>
+                            <input type="hidden" id="file_base64">
+                            <dd class="dd-input-margin-right">
+    						<input type="file" id="upload_file" name="image" multiple="multiple" />
+                            </dd>
+                        </dl>
+                     <div class="tx-r  pdt30">
+                        <input type="button" value="识别" id="submit_ocr"  class="btn btn-primary"/>
+                     </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+    <h3 class="title">识别结果</h3>
+    <div align="center" class="table-title">
+        <dt>旋转角度:</dt>
+        <dd><span id="rotate_angle" /></dd>
+        <dt>拆分点:</dt>
+        <dd><span id="split_width" /></dd>
+    </div>
+    <div align="center">
+			<img id="big_image"  width="80%">
+    </div>
+    <div align="center">
+        <table id="small_table" border="1" style="table-layer:fixed;min-width:980px;width:80%;margin: 0 auto;">
+          <tr>
+              <th width="70%">检测小图</th>
+              <th width="30%">坐标</th>
+          </tr>
+        </table>
+    </div>
+	</body>
+
+</html>

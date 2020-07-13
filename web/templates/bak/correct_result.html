@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OCR结果展示</title>
+    	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	</head>
+	<body>
+		{% include 'includes/_head.html' %}
+		<div class="container">
+
+		<style style="css">
+		.text {
+		  font-size:20px;
+		  color: black;
+		  text-align: center;
+		  background-color: #f8f9fa;
+		  padding: 5px 10px
+		}
+
+
+		</style>
+
+		<h3 class="title">纠错结果</h3>
+
+		<div align="center">
+			<table>
+			{% for text in result['sentences']:  %}
+				<tr>
+					<td><div class="text">{{text}}</div></td>
+				</tr>
+			{% endfor %}
+			</table>
+			<!--<div class="text">{{result['sentences']}}</div>-->
+		</div>
+
+
+
+	</body>
+
+</html>

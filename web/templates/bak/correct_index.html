@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图像识别OCR</title>
+	</head>	
+	<body>
+	{% include 'includes/_head.html' %}
+
+
+	<div class="container">
+		<h3 class="title">纠错测试</h3>
+		<div class="card"  align="center" >
+  			<div class="card-body"  align="center" >
+
+				<form  action="/correct.post" enctype="multipart/form-data" method="POST">
+					<div class="form-group">
+						<label>请输入文本:</label>
+						<input type="text" name="sentences" multiple="multiple" />
+					</div>
+					<div class="form-group">
+						<input type="submit" value="纠错"  class="btn btn-primary"/>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+	</div>
+	</body>
+</html>
