@@ -6,6 +6,6 @@ data/
 test/
 model/
 mask_rcnn/models/
-config
+config/
 config/config.cfg
 release_1.0.json
