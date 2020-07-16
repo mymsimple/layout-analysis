@@ -11,6 +11,7 @@ import re
 import pandas as pd
 import time
 from tqdm import tqdm
+from card.ID_template import crnn
 import logging
 from card import cfg
 CFG = cfg.CFG
@@ -36,12 +37,12 @@ def ocr_psenet(img_base64):
     post_data = {"img": img_base64,
                  "sid": "iamsid",
                  "do_verbose": False,
-                 'detect_model': 'psenet'
+                 'detect_model': 'ctpn'
     }
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, json=post_data, headers=headers)
     data = response.json()
-    #logger.info("返回报文格式:%s",data)
+    logger.info("返回报文格式:%s",data)
     return data
 
 
@@ -72,47 +73,25 @@ def points_to_img(data,image):
         }
         images.append(img)
         pts_all.append(pts)
-    return images,pts_all
+    return images, pts_all
 
 
-
-def crnn(images,boxes, url='default_url'):
-    """
-     多张图片的crnn
-    :param images_base64:
-    :param url:crnn的地址，可以动态传入，以测试不同版本的crnn
-    :return:
-    """
-    if url == 'default_url':
-        url = CFG['local']['url'] + "crnn"
-
-    post_data = []
-    for _img in images:
-        base64_images = nparray2base64(_img)
-        post_data.append({"img": base64_images})
-
-    headers = {'Content-Type': 'application/json'}
-    logger.info("请求crnn:%s",url)
-    response = requests.post(url, json=post_data, headers=headers)
-    logger.info("请求结果:%s",response.status_code)
-    if response.content:
-        result = response.json()
-        logger.debug("crnn返回结果：%s",result)
-
-        results = []
-        for i in range(len(boxes)):
-            pos = boxes[i]
-            img = images[i]
-            cv2.imwrite('data/small_images/' + str(i) + '.jpg', img)
-            txt = result['prism_wordsInfo'][i]['word']
-            if txt is None or txt.strip() == "": continue
-            one_image_info = {
-                'pos': pos,
-                'txt': txt
-            }
-            results.append(one_image_info)
-        logger.info("切图进crnn识别后的结果：%s", results)
-        return results,result
+def result_reconstruct(images,boxes):
+    result = crnn(images)
+    results = []
+    for i in range(len(boxes)):
+        pos = boxes[i]
+        img = images[i]
+        cv2.imwrite('data/small_images/' + str(i) + '.jpg', img)
+        txt = result['prism_wordsInfo'][i]['word']
+        if txt is None or txt.strip() == "": continue
+        one_image_info = {
+            'pos': pos,
+            'txt': txt
+        }
+        results.append(one_image_info)
+    logger.info("切图进crnn识别后的结果：%s", results)
+    return results,result
 
 
 '''
@@ -160,10 +139,10 @@ def get_gap(res):
     res_top.sort(key=cmpy)
 
     res_top = res_top[0:2]
-    print("1:", res_top[0]['txt'])
-    print("2:", res_top[1]['txt'])
-    print("res_top[0]['pos']['y']:", res_top[0]['pos']['y'])
-    print("res_top[1]['pos']['y']:", res_top[1]['pos']['y'])
+    # print("1:", res_top[0]['txt'])
+    # print("2:", res_top[1]['txt'])
+    # print("res_top[0]['pos']['y']:", res_top[0]['pos']['y'])
+    # print("res_top[1]['pos']['y']:", res_top[1]['pos']['y'])
 
     GAP = abs(res_top[0]['pos']['y'] - res_top[1]['pos']['y'])
     current_max_y = min(res_top[0]['pos']['y'], res_top[1]['pos']['y'])
@@ -176,7 +155,6 @@ def get_gap(res):
                 y2 = r['pos']['y']
                 GAP = y2 -y1
                 current_max_y = y1
-
 
     logger.info("前两行y坐标差:%s", GAP)
 
@@ -277,14 +255,15 @@ def nparray2base64(img_data):
 if __name__ == '__main__':
     init_logger()
 
-    #image = cv2.imread("data/cut/2BCAFB4E-2FD8-CD58-35F2-3B8C4DEB5665B1-1.jpg")
-    image = cv2.imread("data/correct/9.jpg")
+    image = cv2.imread("data/data_test/cut/2BCAFB4E-2FD8-CD58-35F2-3B8C4DEB5665B1-1.jpg")
+    #image = cv2.imread("data/data_test/correct/9.jpg")
 
     img_base64 = nparray2base64(image)
     data = ocr_psenet(img_base64)
     images,boxes = points_to_img(data,image)
-    result,_ = crnn(images,boxes)
-    res, GAP, current_max_y = get_gap(result)
+    #result = crnn(images)
+    results, result = result_reconstruct(images, boxes)
+    res, GAP, current_max_y = get_gap(results)
     result = split_line(res, GAP, current_max_y)
     analysis(result)
 

@@ -21,7 +21,7 @@
   },
   "table_detect_params": {
     "name": "idcard_detect",
-    "model_path": "./model/idcard",
+    "model_path": "./model/table_detect",
     "input": [
       {
         "name": "input_1",

@@ -46,12 +46,12 @@ class LsdLiner(object):
     def crop_subimg_by_template(self):
         name_img = self.img[int(self.h * 0.09):int(self.h * 0.24), int(self.w * 0.15):int(self.w * 0.4)]
         sex_img = self.img[int(self.h * 0.23):int(self.h * 0.35), int(self.w * 0.15):int(self.w * 0.25)]
-        nation_img = self.img[int(self.h * 0.24):int(self.h * 0.34), int(self.w * 0.33):int(self.w * 0.50)]
+        nation_img = self.img[int(self.h * 0.24):int(self.h * 0.34), int(self.w * 0.35):int(self.w * 0.50)]
         birthday_img = self.img[int(self.h * 0.35):int(self.h * 0.48), int(self.w * 0.16):int(self.w * 0.61)]
         address_img_1 = self.img[int(self.h * 0.48):int(self.h * 0.60), int(self.w * 0.15):int(self.w * 0.62)]
         address_img_2 = self.img[int(self.h * 0.58):int(self.h * 0.70), int(self.w * 0.15):int(self.w * 0.62)]
         address_img_3 = self.img[int(self.h * 0.68):int(self.h * 0.80), int(self.w * 0.15):int(self.w * 0.62)]
-        idcard_img = self.img[int(self.h * 0.8):int(self.h * 0.93), int(self.w * 0.33):int(self.w * 0.93)]
+        idcard_img = self.img[int(self.h * 0.8):int(self.h * 0.93), int(self.w * 0.31):int(self.w * 0.93)]
         subimg = [name_img, sex_img, nation_img, birthday_img, address_img_1, address_img_2, address_img_3, idcard_img]
         logger.info('套模板完成切图')
 
@@ -79,7 +79,7 @@ def crnn(images, url='default_url'):
     :return:
     """
     if url == 'default_url':
-        url = CFG['local']['url'] + "v2/crnn.ajax"
+        url = CFG['local']['url'] + "crnn" #"v2/crnn.ajax"
 
     post_data = []
     for _img in images:
@@ -109,9 +109,10 @@ def template_match(warped):
     lsdLiner = LsdLiner(warped[0])
     subimg = lsdLiner.crop_subimg_by_template()
     result = recognize_img(subimg)
+    logger.info("******crnn返回结果:%s",result)
     final_result = analysis(result)
 
-    return final_result
+    return final_result,subimg
 
 
 def analysis(result):

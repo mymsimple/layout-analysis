@@ -67,7 +67,7 @@ class ModelParamConfig(object):
         # 模型名
         self.name = ""
         # 模型路径
-        self.model_path = ""
+        self.model_path = "model/table_detect/100000/"
         # input 的key是模型里的变量，value是本地模式启之后的参数参数变量。
         self.input = [ModelParamMapping]
         self.output = [ModelParamMapping]

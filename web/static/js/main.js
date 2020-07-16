@@ -10,10 +10,11 @@ page_param_json = {
                 "type": "image",
             }
         ],
-        "output_type": "text_only",
+        "output_type": "idcard",
         "output": {}
     }
 }
+//"output_type": "text_only"
 
 var g_page_type = "ocr"
 
@@ -163,123 +164,32 @@ function submit_ocr() {
 function load_result(result) {
     var output_type = page_param_json[g_page_type].output_type
     // #TODO 输出格式不同，如何做到统一。
-    if ("plate" == output_type) {
-        load_plate(result)
-    } else if ("preprocess" === output_type) {
-        load_preprocess(result)
-    } else if ('detect' === output_type) {
-        load_detect(result)
-    } else if ('credit.report.split' === output_type) {
-        load_credit_report(result)
-    } else if ('correct' === output_type) {
-        load_correct(result)
-    } else if ('crnn' === output_type) {
-        load_crnn(result)
-    } else if ('ocr' == output_type) {
-        load_ocr(result)
-    } else {
-        // 匹配不到默认不展示图片
+    debugger
+    if ("idcard" == output_type) {
+
+        load_idcard(result)
     }
     //展示json
     delete result['debug_info']
     $('#result_json').html(syntaxHighlight(result));
 }
 
-function load_crnn(result) {
-    $("#text_output").show()
-    $("#text_table  tr:not(:first)").empty("");
 
-    var $table = $("#text_table");
-    result.prism_wordsInfo.forEach(function (e, i, array) {
+function load_idcard(result) {
+    $("#idcard_output").show()
+//    $("#report_image").attr("src", "data:image/jpg;base64," + result.image)
+    var data = result['data']
+
+    var $table = $("#idcard_table");
+    data.forEach(function (e, i, array) {
         var $tr = '<tr>'
-            + '<td width="90%" align="left">'
-            + '<div class="text">' + e.word + '</div>'
-            + '</td>'
-            + '</tr>'
-        $table.append($tr)
-    });
-}
-
-function load_correct(result) {
-    $("#text_output").show()
-    $("#text_table  tr:not(:first)").empty("");
-
-    var $table = $("#text_table");
-    result.sentences.forEach(function (e, i, array) {
-        var $tr = '<tr>'
-            + '<td width="90%" align="left">'
-            + '<div class="text">' + e + '</div>'
-            + '</td>'
-            + '</tr>'
-        $table.append($tr)
-    });
-}
-
-function load_credit_report(result) {
-    $("#report_output").show()
-    $("#report_image").attr("src", "data:image/jpg;base64," + result.image)
-    var small_images = result['split_images']
-
-    var $table = $("#report_table");
-    small_images.forEach(function (e, i, array) {
-        var $tr = '<tr>'
-            + '<td width="90%" align="left"><img style="min-height:20px;max-width:95%" src="data:image/jpg;base64,' + e + '"></td>'
+            + '<td width="30%" style="WORD-WARP:break-word">' + e.name + '</td>'
+            + '<td width="30%" style="WORD-WARP:break-word">' + e.value + '</td>'
             + '</tr>'
         $table.append($tr)
     });
 
 }
-
-function load_detect(result) {
-    $("#detect_output").show()
-    //清空
-    $("#detect_table  tr:not(:first)").empty("");
-    $("#detect_image").attr("src", "")
-    $("#detect_output").show()
-    $("#detect_image").attr("src", "data:image/jpg;base64," + result.image)
-    var small_images = result['small_images']
-    var $table = $("#detect_table");
-    small_images.forEach(function (e, i, array) {
-        var $tr = '<tr>'
-            + '<td width="70%" align="left"><img style="min-height:20px;max-width:95%" src="data:image/jpg;base64,' + e + '"></td>'
-            + '<td width="30%" style="WORD-WARP:break-word">' + result['boxes'][i] + '</td>'
-            + '</tr>'
-        $table.append($tr)
-    });
-}
-
-function load_preprocess(result) {
-    $("#preprocess_output").show()
-    $("#pre_image").attr("src", "data:image/jpg;base64," + result.image)
-}
-
-function load_ocr(result) {
-    $("#ocr_output").show()
-    var debug_info = result.debug_info
-    $("#big_image").attr("src", "data:image/jpg;base64," + debug_info.image)
-    var $table = $("#small_table");
-    var small_images = debug_info['small_images']
-    small_images.forEach(function (e, i, array) {
-        var $tr = '<tr>'
-            + '<td width="60%" align="left"><img style="min-height:20px;max-width:95%" src="data:image/jpg;base64,' + e + '"></td>'
-            + '<td width="20%">' + debug_info['text'][i] + '</td>'
-            + '<td>' + debug_info['text_corrected'][i] + '</td>'
-            + '</tr>'
-        $table.append($tr)
-    });
-}
-
-function load_plate(result) {
-    $("#plate_output").show()
-    if (result.debug_info != null) {
-        var debug_info = result.debug_info
-        $("#plate_no").html(result.plate.plate)
-        $("#plate_image").attr("src", "data:image/jpg;base64," + debug_info.image)
-        $("#plate_small").attr("src", "data:image/jpg;base64," + debug_info.plate_image)
-    }
-
-}
-
 
 function syntaxHighlight(json) {
     if (typeof json != 'string') {

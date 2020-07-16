@@ -12,6 +12,7 @@ import cv2
 import numpy as np
 from mask_rcnn.m_rcnn.mask_rcnn import MaskRCNN
 from card.ID_template import crop_img,template_match
+#from card.detect_and_recognize import
 from mask_rcnn.config import cfg
 import logging
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"

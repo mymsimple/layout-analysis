@@ -14,6 +14,8 @@ from mask_rcnn.m_rcnn.mask_rcnn import MaskRCNN
 from card.ID_template import crop_img, template_match
 from mask_rcnn.config import cfg
 import logging
+from service.m_rcnn.mask_rcnn_service import MaskRCNN
+from vo.response.idcard_response_vo import IdcardResponse, Field
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 from server.conf import system_config
@@ -105,25 +107,22 @@ class MaskTest(object):
     def front_template(point, image_info):
         point = np.array(point)
         warped = crop_img(image_info, point)
-        result = template_match(warped)
+        result, small_images = template_match(warped)
         logger.debug("返回模板匹配结果:%s", result)
-        return result
+        return result, small_images
         pass
 
     def recognize(self, point, image_info):
         # if self.area_ratio:
-        _result = self.front_template(point, image_info)
+        _result, small_images = self.front_template(point, image_info)
         # else:
         #     res = self.detect_and_recognize(self.img)
         logger.info('最终识别结果:%s', _result)
-        return _result
+        return _result, small_images
         pass
 
     def area_ratio(self):
         logger.info()
-
-
-from service.m_rcnn.mask_rcnn_service import MaskRCNN
 
 
 def process(image):
@@ -138,8 +137,13 @@ def process(image):
     approx = test.cut_rectangle(results_info_list)
     # cv2.imwrite(os.path.join(self.cut_image_path + test_image_name), cut_img)
     point = test.format_convert(approx)
-    final_result = test.recognize(point, image)
-    return final_result
+    final_result, small_images = test.recognize(point, image)
+    data = []
+    for (k, v) in final_result.items():
+        data.append(Field(k,v))
+    response = IdcardResponse()
+    response.data = data
+    return response
 
 
 if __name__ == "__main__":

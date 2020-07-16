@@ -63,8 +63,8 @@ if [ $? != 0 ]; then
     exit 1
 fi
 
-PORT=8080
-MODE=single
+#PORT=8080
+#MODE=single
 
 echo "环境变量："
 echo "-------------------"
@@ -104,7 +104,7 @@ if [ "$MODE" == "single" ]; then
     # 参考：https://medium.com/building-the-system/gunicorn-3-means-of-concurrency-efbb547674b7
     # worker=3是根据GPU的显存数调整出来的，ration=0.2，大概一个进程占满为2.5G,4x2.5=10G显存
     _CMD="MODE=$MODE gunicorn \
-        --name=ocr_web_server \
+        --name=card_web_server \
         --workers=1 \
         --bind 0.0.0.0:$PORT \
         --timeout=300 \

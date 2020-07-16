@@ -3,9 +3,11 @@ from utils import ocr_utils, json_utils
 from flask import jsonify, request, Blueprint
 import logging, time
 from server import conf
+from service import detect_service
 from vo.request.ocr_request_vo import OcrRequest, OcrRequestV2
 from vo.response.base_response import BaseResponse
 from vo.enums.ocr_enum import BizType
+from vo.response.base_response import DebugInfo
 
 logger = logging.getLogger(__name__)
 
@@ -33,16 +35,28 @@ def ocr():
 
         # 注意！ctpn_params是个全局变量，只有在single模式的时候，才会被初始化，否则就是个None
         # TODO !! 检测模型默认！！
-        result = idcard_service.process(image)
+        response = idcard_service.process(image)
+
+        #detect_image = detect_service.draw_image(image, box_table, True)# 画框
+
+        # debug_info = DebugInfo()
+
+        # debug_info.small_images = ocr_utils.nparray2base64(small_images) # 小图
+        # debug_info.text = result[]  # 返回文本
+        #debug_info.image = ocr_utils.nparray2base64(detect_image) # 大图
+
+        # result['debug_info'] = debug_info
+
         logger.debug("识别图片花费[%d]秒", time.time() - start)
-        # return jsonify(json_utils.obj2json(response))
-        return jsonify(result)
+        return jsonify(json_utils.obj2json(response))
+        # return jsonify(result)
     except Exception as e:
 
         import traceback
         traceback.print_exc()
         logger.error("处理图片过程中出现问题：%r", e)
         return jsonify(BaseResponse("9999", str(e)).__dict__)
+
 
 #
 # @app.route('/ocr_debug.ajax', methods=["POST"])
@@ -83,4 +97,3 @@ def validate(ocr_request: OcrRequest):
         raise ValueError("detect_model 不能为空")
     if not ocr_request.img:
         raise ValueError("img 不能为空")
-

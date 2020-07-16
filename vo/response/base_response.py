@@ -37,6 +37,21 @@ class WordEntity:
     # prob = []   # |否        | float     |逐字置信度
 
 
+class DebugInfo:
+    """ 页面debug用参数 """
+    boxes = []
+    # 切开的小图base64
+    small_images = []
+    # 矫正后的文本
+    text_corrected = []
+    # 识别的文本
+    text = []
+    #  划线后图片
+    image = ''
+    # # 置信度
+    # prob = []
+
+
 if __name__ == '__main__':
     a = BaseResponse()
     print(a)

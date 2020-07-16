@@ -189,9 +189,9 @@ __C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/i
 __C.TRAIN.COCO_VAL_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/val_data.json")
 __C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/labelme_split")
 
-__C.TRAIN.MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "mask_rcnn/models/mask_rcnn_coco.h5")
+__C.TRAIN.MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "model/mask_rcnn_coco.h5")
 #TODO 做成动态
-__C.TRAIN.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "mask_rcnn/models/mask_rcnn_coco_{epoch:04d}.h5")
+__C.TRAIN.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "model/mask_rcnn_coco_{epoch:04d}.h5")
 __C.TRAIN.LOGS_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "logs")
 
 # If enabled, resizes instance masks to a smaller size to reduce
@@ -297,8 +297,8 @@ __C.TRAIN.ANCHORS_PER_IMAGE = 256
 __C.TEST = edict()
 
 # model 文件路径
-__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "mask_rcnn/models/mask_rcnn_coco_0076.h5")
-__C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "mask_rcnn/models/")
+__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "model/mask_rcnn_coco_0076.h5")
+__C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "model/")
 __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt")
 
 __C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "./data/idcard/input/")
