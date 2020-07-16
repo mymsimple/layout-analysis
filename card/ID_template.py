@@ -172,28 +172,3 @@ if __name__ == "__main__":
 
     final_result = main(frame_path, images_path, result_path)
     print(final_result)
-
-
-
-
-# if __name__ == '__main__':
-#     import sys
-#     init_logger()
-#
-#     img_path = sys.argv[1]
-#     result = main(path, images_path)
-#     print(result)
-
-'''
-crnn接口返回结果：
-{'code': 0, 
- 'prism_wordsInfo': [{'word': '汪吉星'}, 
-                     {'word': '男'}, 
-                     {'word': '族汉'}, 
-                     {'word': '1987年2月6日'}, 
-                     {'word': '河非省二河市燕郊开发区'}, 
-                     {'word': '篮湾小区12号楼2单元'}, 
-                     {'word': '3304室'}, 
-                     {'word': '341222198702062973'}], 
- 'sid': '202007071834291'}
-'''
