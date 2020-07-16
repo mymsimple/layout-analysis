@@ -12,7 +12,7 @@ import numpy as np
 import sys
 from common import logger
 #from idcard_recognizer.utils import painter, img2string
-if DEBUG: sys.path.append('/Users/tt/CV/ocr_card/idcard')
+if DEBUG: sys.path.append('/Users/idcard_v1/CV/ocr_card/idcard')
 
 
 idcard_w2h_ratio = 8.56/5.4  # 身份证长宽比

@@ -10,7 +10,7 @@ import sys
 from common.config import Config
 DEBUG = Config().is_debug
 
-if DEBUG: sys.path.append('/Users/tt/CV/ocr_card/idcard')
+if DEBUG: sys.path.append('/Users/idcard_v1/CV/ocr_card/idcard')
 from common import logger
 
 
