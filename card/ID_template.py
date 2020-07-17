@@ -88,8 +88,12 @@ def crnn(images, url='default_url'):
 
     headers = {'Content-Type': 'application/json'}
     logger.info("请求crnn:%s, image size=%d", url, len(post_data))
-    response = requests.post(url, json=post_data, headers=headers)
-    logger.info("请求结果:%s", response.status_code)
+    try:
+        response = requests.post(url, json=post_data, headers=headers)
+        logger.info("请求结果:%s", response.status_code)
+    except requests.exceptions.ConnectionError:
+        response.status_code = "Connection refused"
+
     if response.content:
         result = response.json()
         logger.debug("crnn返回结果：%s", result)
